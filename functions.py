@@ -74,7 +74,7 @@ def Draw(algo, problem, result, global_best):
     if problem == 1: #oneMax
         HC_result = HW2.HW2_main(draw=False)
         if algo == 'SA': #畫HC+SA(本身)
-            plt.plot(HC_result, color='b:', label="HC avg")
+            plt.plot(HC_result, 'b:', label="HC avg")
         elif algo == 'TS': #畫HC+SA+TB(本身)
             SA_result =  HW3.HW3_main(draw=False)
             plt.plot(HC_result, 'b:', label="HC avg")
