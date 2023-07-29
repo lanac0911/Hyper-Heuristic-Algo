@@ -28,7 +28,7 @@ def which_algo(type):
         HW2.HW2_main(draw=True)
     elif(type == 'SA'):
         HW3.HW3_main(draw=True)
-    elif(type == 'TB'):
+    elif(type == 'TS'):
         HW4.HW4_main()
 
 params = { 0:'HC' , 1: 51, 2: 1000, 3: 100 } #algo, runs, iters, bits
