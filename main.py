@@ -27,7 +27,7 @@ def which_algo(type):
     elif(type == 'HC'):    
         HW2.HW2_main(draw=True)
     elif(type == 'SA'):
-        HW3.HW3_main()
+        HW3.HW3_main(draw=True)
     elif(type == 'TB'):
         HW4.HW4_main()
 

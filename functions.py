@@ -2,6 +2,7 @@ import random
 import functions, varibles
 import matplotlib.pyplot as plt
 from HW2 import HW2
+from HW3 import HW3
 
 # ------- SHARE -------
 # 初始一組解(one max problem)
@@ -64,7 +65,6 @@ content = '⎨ Deceptive Function Def. ⎬\n   ( n = 4 for example) \n----------
 funct = '  f(0000) = 5   * optimal\n  f(0001) = 1\n  f(0010) = 1\n  f(0011) = 2\n.\n.\n.\n  f(1100) = 2\n  f(1101) = 3\n  f(1110) = 3\n  f(1111) = 4\n'
 
 def Draw(algo, problem, result, global_best):
-
     # ------ 印出結果 ------
     print("⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯")
     print("在第", global_best['iter'], "回時有最佳解:",global_best['sol'], "，\n內容為：", global_best['list'])
@@ -73,7 +73,12 @@ def Draw(algo, problem, result, global_best):
     title = 'Deceptive Problem'
     if problem == 1: #oneMax
         HC_result = HW2.HW2_main(draw=False)
-        plt.plot(HC_result, color='g', label="HC avg")
+        if algo == 'SA': #畫HC+SA(本身)
+            plt.plot(HC_result, color='b:', label="HC avg")
+        elif algo == 'TB': #畫HC+SA+TB(本身)
+            SA_result =  HW3.HW3_main(draw=False)
+            plt.plot(HC_result, 'b:', label="HC avg")
+            plt.plot(SA_result, 'g--', label='SA avg')
         title = 'One Max Problem'
     if problem == 2: #deceptive
         y_top = result[len(result)-1]; y_bottom = result[0]
@@ -91,7 +96,7 @@ def Draw(algo, problem, result, global_best):
         )
     # ------ 畫圖用 ------
     #plt1
-    plt.plot(result, color='b', label='{0} avg'.format(varibles.ALGO))
+    plt.plot(result, color='r', label='{0} avg'.format(varibles.ALGO)) #(本身)
     plt.xlabel('Iterations', fontsize="10") 
     plt.ylabel('Fitness', fontsize="10") 
     plt.title(title, fontsize="18") 

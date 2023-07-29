@@ -63,15 +63,16 @@ def Simulated_Annealing(n, type):
     return (sumlist, global_best) 
 
 
-def HW3_main():
-    while(1):
-        print("=====================================================")
-        print("for【One Max Problem】enter 1 \nfor【Deceptive Problem】enter 2 ")
-        print("=====================================================")
-        problem = int(input('please input: '))  
-        if problem == 1 or problem == 2 : 
-            break
-
+def HW3_main(draw):
+    problem = 1
+    if draw:
+        while(1):
+            print("=====================================================")
+            print("for【One Max Problem】enter 1 \nfor【Deceptive Problem】enter 2 ")
+            print("=====================================================")
+            problem = int(input('please input: '))  
+            if problem == 1 or problem == 2 : 
+                break
     if problem == 1: #One Max Problem
         n = varibles.BIT_LEN
         type = 'One Max Problem'
@@ -80,6 +81,7 @@ def HW3_main():
         type = 'Deceptive Problem'
 
     (result, global_best) = Simulated_Annealing(n, type)
-  
-    functions.Draw(varibles.ALGO, problem, result, global_best)
-
+    
+    if(draw):
+        functions.Draw(varibles.ALGO, problem, result, global_best)
+    else: return result
