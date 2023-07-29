@@ -16,7 +16,6 @@ def Random_Sol(n):
 
 # ------- HW2 -------
 def Dec_to_BinaryList(num):
-    # print(num , "---:   ", bin(num), "---:",  bin (num)[2:1])
     return [i for i in bin(num)[2:]]
 
 def BinaryList_to_Dec(list):
