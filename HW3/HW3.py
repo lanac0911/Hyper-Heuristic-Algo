@@ -48,14 +48,14 @@ def Transition_by_Random(list, n, type):
 
 
 def Simulated_Annealing(n, type):
-    global best_sol, global_best, global_best_list
+    global best_sol, global_best
     sumlist = [0] * varibles.ITER
     for i in range(varibles.RUNS):
-        t = T0
+        t = T0	
         one_iter_sol_list = []
         # ------- Initialization 生成一組初始解 -------
         init_obj = functions.Random_Sol(n) #隨機產生一組初始解
-        init_sol = functions.Count_Sol(init_obj['random_list']) #計算當前解
+        init_sol = init_obj['one_nums'] #計算當前解
         best_sol = init_sol; temp_sol = best_sol
         temp_list = init_obj['random_list']
         j = 0
