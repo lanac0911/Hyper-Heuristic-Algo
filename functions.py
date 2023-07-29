@@ -1,4 +1,7 @@
 import random
+import functions, varibles
+import matplotlib.pyplot as plt
+from HW2 import HW2
 
 # ------- SHARE -------
 # 初始一組解(one max problem)
@@ -11,8 +14,25 @@ def Random_Sol(n):
     d['one_nums'] = one_nums
     d['zero_nums'] = zero_nums
     d['random_list'] = random_list
-
     return d
+
+# 生成鄰居解
+def Transition_by_Random(list, n, type):
+    # ------ 隨機翻轉 ------
+    new_list = list.copy()
+    position = random.randint(0, n - 1) #隨機更改的位置
+    new_list[position] = int(not new_list[position]) #翻轉位元
+    if type == 'Deceptive Problem':
+        new_sol = functions.Trap_Func(new_list) # 計算新解
+    else:
+        new_sol = functions.Count_Sol(new_list) # 計算新解
+
+    d = dict()
+    d['sol'] = new_sol
+    d['list'] = new_list
+    return d
+
+
 
 # ------- HW2 -------
 def Dec_to_BinaryList(num):
@@ -36,3 +56,44 @@ def Trap_Func(list):
     if cnt == 0:
         cnt = len(list) + 1
     return cnt
+
+
+
+# ------- 畫圖 -------
+content = '⎨ Deceptive Function Def. ⎬\n   ( n = 4 for example) \n---------------------------\n'
+funct = '  f(0000) = 5   * optimal\n  f(0001) = 1\n  f(0010) = 1\n  f(0011) = 2\n.\n.\n.\n  f(1100) = 2\n  f(1101) = 3\n  f(1110) = 3\n  f(1111) = 4\n'
+
+def Draw(algo, problem, result, global_best):
+
+    # ------ 印出結果 ------
+    print("⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯")
+    print("在第", global_best['iter'], "回時有最佳解:",global_best['sol'], "，\n內容為：", global_best['list'])
+    print("⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯")
+
+    title = 'Deceptive Problem'
+    if problem == 1: #oneMax
+        HC_result = HW2.HW2_main(draw=False)
+        plt.plot(HC_result, color='g', label="HC avg")
+        title = 'One Max Problem'
+    if problem == 2: #deceptive
+        y_top = result[len(result)-1]; y_bottom = result[0]
+        distance = ((y_top - y_bottom) / 5) 
+        y = y_bottom + distance
+        plt.annotate(
+            (content+funct),
+            xy=(int(varibles.ITER / 2),y ),
+            bbox={
+                'boxstyle':'round',
+                'facecolor':'#d9d2d9',
+                'edgecolor':'#4d494d',
+                'linewidth':2
+            }
+        )
+    # ------ 畫圖用 ------
+    #plt1
+    plt.plot(result, color='b', label='{0} avg'.format(varibles.ALGO))
+    plt.xlabel('Iterations', fontsize="10") 
+    plt.ylabel('Fitness', fontsize="10") 
+    plt.title(title, fontsize="18") 
+    plt.legend()
+    plt.show()
