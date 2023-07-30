@@ -83,5 +83,7 @@ def HW3_main(draw):
     (result, global_best) = Simulated_Annealing(n, type)
     
     if(draw):
-        functions.Draw(varibles.ALGO, problem, result, global_best)
+        print_content = [ "在第" + str(global_best['iter']) + "回時有最佳解:" + str(global_best['sol']) + "，\n內容為：" + str(global_best['list'])]
+
+        functions.Draw(print_content,varibles.ALGO, problem, result, [])
     else: return result

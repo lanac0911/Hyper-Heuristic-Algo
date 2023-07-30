@@ -40,43 +40,6 @@ def Hill_Climbling():
 
     return [rl_best_sol, rand_best_sol]
 
-def Draw( 
-        rl_best_run, rl_total_best, rl_sum_list,
-        rand_best_run, rand_total_best, rand_sum_list,
-    ):
-   # ------ 印出結果 ------
-    print("⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯")
-    print("【 往左/右走 】\n在第", rl_best_run, "回有最佳解:",rl_total_best, "，平均最佳解：", math.floor(rl_sum_list[len(rl_sum_list)-1] * 100) / 100.0)
-    print("【 隨機左右移 】\n在第", rand_best_run, "回有最佳解:",rand_total_best, "，平均最佳解：", math.floor(rand_sum_list[len(rand_sum_list)-1] * 100) / 100.0)
-    print("⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯")
-    
-    # ------ 畫圖用 ------
-    #plt1
-    plt.subplot(2, 2, 1)
-    plt.plot(rl_sum_list, color='g')
-    plt.title("Right or Left")
-    #plt2
-    plt.subplot(2,2,2)
-    plt.plot(rand_sum_list, color='b')
-    plt.title("Random")
-
-    plt.xlabel('iterations')
-    plt.suptitle("HillClimbling")    
-    #plt3
-    ax1 = plt.subplot(2, 1, 2)
-    ax1.plot(rl_sum_list, c='g')
-    ax1.set_xlabel("Iteration")
-    ax1.set_ylabel("Right or Left", color='g')
-    plt.setp(ax1.get_yticklabels(), color='g') 
-
-    ax2 = ax1.twinx()
-    ax2.plot(rand_sum_list, color='b' )
-    ax2.set_ylabel("Random", color='b')
-    ax2.tick_params('y', color='b')
-    plt.setp(ax2.get_yticklabels(), color='b') 
-
-    plt.show()
-
 def HW2_main(draw):
     global RL_list, Rand_list, rl_best_sol, rand_best_sol, history
     global rl_temp_history, rand_temp_history
@@ -98,7 +61,6 @@ def HW2_main(draw):
             rand_temp_history.append(temp_best[1])
             j += 1
 
-
         # ------ 取代＆做平均計算用 ------
         rl_sum_list = np.array(rl_sum_list) + np.array(rl_temp_history)
         rand_sum_list = np.array(rand_sum_list) + np.array(rand_temp_history)
@@ -114,10 +76,12 @@ def HW2_main(draw):
     rand_sum_list = np.divide(rand_sum_list, varibles.RUNS)
 
     if(draw):
-        Draw(
-            rl_best_run, rl_total_best, rl_sum_list,
-            rand_best_run, rand_total_best, rand_sum_list,
-        )
+        print_content = [ 
+            "【 往左/右走 】\n在第" + str(rl_best_run)  + "回有最佳解:"  + str(rl_total_best)  +  "，平均最佳解：" + str(math.floor(rl_sum_list[len(rl_sum_list)-1] * 100) / 100.0),
+            "【 隨機左右移 】\n在第" + str(rand_best_run) + "回有最佳解:" + str(rand_total_best) + "，平均最佳解：" + str(math.floor(rand_sum_list[len(rand_sum_list)-1] * 100) / 100.0)
+        ]
+        speciallist = [rl_best_run, rl_total_best, rl_sum_list, rand_best_run, rand_total_best, rand_sum_list,]
+        functions.Draw(print_content,varibles.ALGO, 1, [], speciallist)        
     else:
         return rand_sum_list
  
