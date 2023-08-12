@@ -78,24 +78,27 @@ def TABU_Search(n, type):
                     Quene_Oper('en', new_obj['list']) #enquene
                 #否 => 不更新，略過
             # temp_list = new_obj['list']
+            print("!!!!!!!,be",best_sol)
             one_iter_sol_list.append(best_sol) 
             j+=1
-
-
+        print("one_iter_sol_list=",one_iter_sol_list)
         sumlist = np.array(sumlist) + np.array(one_iter_sol_list) #算平均用
+        print("sumlist=",sumlist)
     sumlist = np.divide(sumlist, varibles.RUNS)
+    print("after sumlist=",sumlist)
     return (sumlist, global_best) 
 
 
-def HW4_main():
+def HW4_main(draw):
     global best_sol
-    while(1):
-        print("=============================================")
-        print("for【One Max Problem】enter 1 \nfor【Deceptive Problem】enter 2 ")
-        print("=============================================")
-        problem = int(input('please input: '))  
-        if problem == 1 or problem == 2 : 
-            break
+    if draw:
+        while(1):
+            print("=============================================")
+            print("for【One Max Problem】enter 1 \nfor【Deceptive Problem】enter 2 ")
+            print("=============================================")
+            problem = int(input('please input: '))  
+            if problem == 1 or problem == 2 : 
+                break
 
     if problem == 1: #One Max Problem
         n = varibles.BIT_LEN
@@ -105,6 +108,7 @@ def HW4_main():
         type = 'Deceptive Problem'
 
     (result, global_best) = TABU_Search(n, type)
-    print_content = [ "在第" + str(global_best['iter']) + "回時有最佳解:" + str(global_best['sol']) + "，\n內容為："+ str(global_best['list'])]
-    functions.Draw(print_content,varibles.ALGO, problem, result, [])
-
+    if(draw):
+        print_content = [ "在第" + str(global_best['iter']) + "回時有最佳解:" + str(global_best['sol']) + "，\n內容為："+ str(global_best['list'])]
+        functions.Draw(print_content,varibles.ALGO, problem, result, [])
+    else: return result

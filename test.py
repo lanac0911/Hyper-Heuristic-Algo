@@ -1,7 +1,7 @@
 # list1 = [0,1,0,1,0,1,0]
 # list2 = [0,1,0,1,0,1,0]
 # list3 = [1,1,1,0,0,1,0]
-
+import numpy as np
 # t = [[0,1,0,1,0,1,0], [0,1,0,1,0,1,0], [1,1,1,0,0,1,0]]
 # print(len(t))
 
@@ -30,5 +30,15 @@
 # for i in range(4):
 #     print(params[i])
 
-for i in range(4):
-    print(i)
+# ß
+
+# li = [{'one_nums': 5, 'zero_nums': 5, 'random_list': [1, 1, 1, 0, 0, 0, 1, 1, 0, 0]}, {'one_nums': 2, 'zero_nums': 8, 'random_list': [0, 0, 0, 0, 1, 0, 0, 0, 0, 1]}, {'one_nums': 2, 'zero_nums': 8, 'random_list': [0, 0, 0, 1, 0, 0, 1, 0, 0, 0]}, {'one_nums': 0, 'zero_nums': 10, 'random_list': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}, {'one_nums': 3, 'zero_nums': 7, 'random_list': [1, 0, 1, 0, 1, 0, 0, 0, 0, 0]}, {'one_nums': 10, 'zero_nums': 0, 'random_list': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}]
+# print(li)
+# print("====")
+# print(li['random_list'])
+# for   
+
+
+l = [{'sol': 4, 'list': [1, 1, 0, 1, 0, 0]}, 
+     {'sol': 5, 'list': [1, 0, 0, 1, 0, 0]}]
+print(l[1]['list'][3])

@@ -4,6 +4,7 @@ from HW1 import HW1
 from HW2 import HW2
 from HW3 import HW3
 from HW4 import HW4
+from HW5 import t
 
 def load_para(algo, runs, iter, bits):
     varibles.ALGO = algo
@@ -29,8 +30,11 @@ def which_algo(type):
     elif(type == 'SA'):
         HW3.HW3_main(draw=True)
     elif(type == 'TS'):
-        HW4.HW4_main()
+        HW4.HW4_main(draw=True)
+    elif(type == 'GA'):
+        t.HW5_main(draw=True)
 
+# params = { 0:'HC' , 1: 2, 2: 20, 3: 10 } #algo, runs, iters, bits
 params = { 0:'HC' , 1: 51, 2: 1000, 3: 100 } #algo, runs, iters, bits
 if __name__ == '__main__':
     for i in range(2,6):

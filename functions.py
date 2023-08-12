@@ -17,6 +17,16 @@ def Random_Sol(n):
     d['random_list'] = random_list
     return d
 
+def Random_Sol_Simple(n):
+    one_nums = random.randint(0, n) #random “1” 的數量
+    zero_nums = n - one_nums # 計算出 "0" 的數量
+    list = [0] * zero_nums + [1] * one_nums # 組成list
+    random_list = random.sample(list, len(list)) # 打亂list
+    d = dict()
+    d['sol'] = one_nums
+    d['list'] = random_list
+    return d
+
 # 生成鄰居解
 def Transition_by_Random(list, n, type):
     # ------ 隨機翻轉 ------
