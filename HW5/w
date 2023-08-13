@@ -34,10 +34,10 @@ def proba_to_cumulative(p_list): # [0.0185, 0.1296, ...]
 
 def Selection(nums, cdf_l, popu_l): 
 #nums = 4, cdf_l = [0.018, 0.129, ...], popu_l = [{'sol': 10, 'list': [1, 1, 1, 1, 1]}, ....}
+    print("111--------", nums, cdf_l, popu_l)
     selected_list = []
     for i in range(nums): #ex. 總共選4個
         r = random.random()
-        print("###############################R==",r)
         picked_idx = -1 #index of list
         if r <= cdf_l[0]: picked_idx = 0
         else: #當qk-1 < r < qk，則選擇第 k 個染色體 vk
@@ -55,24 +55,24 @@ def Crossover(list_group): #[{'sol': 4, 'list': [1, 1, 0, 1, 0, 0]}, ...]
     cross_index_cut = random.randint(0, varibles.BIT_LEN - 1) # 單點交換：random要交配的切斷點index
     for idx in range(0, SELECTION_SIZE): #4-> 0 1 2 3 # 兩兩做交配
         result_list = obj_list[idx]['list'].copy()
-        cross_r = random.random()
-        if cross_r < CROSSOVER_RATE: # 小於則進行交換
-            for j in range(cross_index_cut, varibles.BIT_LEN): # A[cross_index_cut]~A[last_index]
-                # print("j=",j)
-                    # print("可換 idx=", idx, "j=",j)
-                    if idx%2 == 0: # 第一個0（偶數）list 與 第二個1（奇數）list 交換 
-                        # print("偶數", idx,temp_list[idx][j],"與",  temp_list[idx+1][j],"交換")
-                        # print("前", temp_list)
-                        # obj_list[idx][j] = obj_list[idx+1][j]
-                        result_list[j] =  obj_list[idx+1]['list'][j]
-                        # print("後", temp_list)  
-                    else: # 第二個list 跟 第一個list （偶數）交換 
-                        # print("奇數", idx,temp_list[idx][j],"與",  temp_list[idx-1][j],"交換")
-                        # print("前", temp_list)
-                        # obj_list[idx][j] = obj_list[idx-1][j]
-                        result_list[j] =  obj_list[idx-1]['list'][j]
-                        # print("後", temp_list)  
-                    # print("===========")
+        for j in range(cross_index_cut, varibles.BIT_LEN): # A[cross_index_cut]~A[last_index]
+            cross_r = random.random()
+            if cross_r < CROSSOVER_RATE: # 小於則進行交換
+            # print("j=",j)
+                # print("可換 idx=", idx, "j=",j)
+                if idx%2 == 0: # 第一個0（偶數）list 與 第二個1（奇數）list 交換 
+                    # print("偶數", idx,temp_list[idx][j],"與",  temp_list[idx+1][j],"交換")
+                    # print("前", temp_list)
+                    # obj_list[idx][j] = obj_list[idx+1][j]
+                    result_list[j] =  obj_list[idx+1]['list'][j]
+                    # print("後", temp_list)  
+                else: # 第二個list 跟 第一個list （偶數）交換 
+                    # print("奇數", idx,temp_list[idx][j],"與",  temp_list[idx-1][j],"交換")
+                    # print("前", temp_list)
+                    # obj_list[idx][j] = obj_list[idx-1][j]
+                    result_list[j] =  obj_list[idx-1]['list'][j]
+                    # print("後", temp_list)  
+                # print("===========")
         # print("結果", result_list)
         d = dict()
         d['sol'] = functions.Count_Sol(result_list)
@@ -110,19 +110,11 @@ def Genetic_Algorithm(n, type):
             init_popu.append(functions.Random_Sol_Simple(n))
         # print("init_popu=",init_popu)  #[{'sol': 10, 'list': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}, ....}
         # print("-")
+        probability_list = cal_proba(init_popu) # [0.0185185, 0.1296296, ...]
+        cdf_list = proba_to_cumulative(probability_list) # [0.114, 0.11428, ...]
+        selected_list = Selection(SELECTION_SIZE, cdf_list, init_popu) #[{'sol': 4, 'list': [1, 1, 0, 1, 0, 0]}, ...]
         while iter < varibles.ITER:
             # print("[[[[[[[[[[[[ 回圈",iter,"]]]]]]]]]]]]", init_popu)
-            # ------ 對現有population進行fitness評估 ------------
-            probability_list = cal_proba(init_popu) # [0.0185185, 0.1296296, ...]
-            # print("probability_list=",probability_list)
-            # print("-")
-            cdf_list = proba_to_cumulative(probability_list) # [0.114, 0.11428, ...]
-            # print("cdf_list=",cdf_list)
-            # print("-")
-            # ------ Selection (by CDF) -----------------
-            selected_list = Selection(SELECTION_SIZE, cdf_list, init_popu) #[{'sol': 4, 'list': [1, 1, 0, 1, 0, 0]}, ...]
-            # print("selected_list=",selected_list)
-            # print("-")
             # ------ Crossover（選出的selected_list兩兩交配） ------
             crossovered_list = Crossover(selected_list) #[{'sol': 4, 'list': [1, 1, 0, 1, 0, 0]}, ...]
             # print("crossovered_list=",crossovered_list)
@@ -133,9 +125,23 @@ def Genetic_Algorithm(n, type):
             # print("-")
 
             # ------ New population ------
-            init_popu = mutation_list
-            for i in range(POPULATION_SIZE - SELECTION_SIZE):
-                init_popu.append(functions.Random_Sol_Simple(n))
+            new_popu = mutation_list
+            print("new_popu0=",new_popu)
+            #  對現有population進行fitness評估 
+            probability_list = cal_proba(new_popu) # [0.0185185, 0.1296296, ...]
+            # print("probability_list=",probability_list)
+            # print("-")
+            cdf_list = proba_to_cumulative(probability_list) # [0.114, 0.11428, ...]
+            # print("cdf_list=",cdf_list)
+            # print("-")
+            # Selection (by CDF) 
+            new_popu = Selection(POPULATION_SIZE, cdf_list, new_popu) #[{'sol': 4, 'list': [1, 1, 0, 1, 0, 0]}, ...]
+            print("new_popu1=",new_popu)
+            # print("-")                
+            # ------ Selection (by CDF) -----------------
+            selected_list = Selection(SELECTION_SIZE, cdf_list, new_popu) #[{'sol': 4, 'list': [1, 1, 0, 1, 0, 0]}, ...]
+            # print("selected_list=",selected_list)
+            # print("-")            
             # ------ find the local/global best sol of this iteration ------
             local_best = 0; local_sum = 0
             for idx in range(0, SELECTION_SIZE):
