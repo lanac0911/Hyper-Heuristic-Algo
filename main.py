@@ -34,7 +34,7 @@ def which_algo(type):
     elif(type == 'GA'):
         HW5.HW5_main(draw=True)
 
-# params = { 0:'HC' , 1: 51, 2: 1000, 3: 100 } #algo, runs, iters, bits
+# params = { 0:'HC' , 1: 5, 2: 10, 3: 10} #algo, runs, iters, bits
 params = { 0:'HC' , 1: 51, 2: 1000, 3: 100 } #algo, runs, iters, bits
 if __name__ == '__main__':
     for i in range(2,6):

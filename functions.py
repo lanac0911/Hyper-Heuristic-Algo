@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from HW2 import HW2
 from HW3 import HW3
 from HW4 import HW4
+import numpy as np
 
 # ------- SHARE -------
 # 初始一組解(one max problem)
@@ -101,6 +102,16 @@ def Update_Optaimal(list):
     d['list'] = list
     return d
 
+def generate_popu(size,len):
+    popu_list = []
+    for _ in range(size):
+        chrom_list = []
+        chrom_list = np.random.randint(0,2,len)
+        chrom_sol = functions.Count_Sol(chrom_list)
+        d = dict(); d['list'] = chrom_list.tolist(); d['sol'] = chrom_sol
+        popu_list.append(d)
+    return popu_list
+
 #######################
 content = '⎨ Deceptive Function Def. ⎬\n   ( n = 4 for example) \n---------------------------\n'
 funct = '  f(0000) = 5   * optimal\n  f(0001) = 1\n  f(0010) = 1\n  f(0011) = 2\n.\n.\n.\n  f(1100) = 2\n  f(1101) = 3\n  f(1110) = 3\n  f(1111) = 4\n'
@@ -108,11 +119,18 @@ funct = '  f(0000) = 5   * optimal\n  f(0001) = 1\n  f(0010) = 1\n  f(0011) = 2\
 
 # ------ 印出結果 ------
 def Print_Info(content):
-    print("⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯")
-    for i in range(len(content)):
-        print(content[i])
-    print("⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯")
-
+    if(len(content) == 1):
+        print("⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯")
+        for i in range(len(content)):
+            print(content[i])
+        print("⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯")
+    else:
+        print("⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯")
+        for i in range(len(content)):
+            print("⎯⎯⎯⎯⎯⎯")
+            print(' '.join(content[i]))
+            print("⎯⎯⎯⎯⎯⎯")
+        print("⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯")
 
 # ------- 畫圖 -------
 def Draw(print_content, algo, problem, result, special_result):
@@ -151,12 +169,11 @@ def Draw(print_content, algo, problem, result, special_result):
                 SA_result =  HW3.HW3_main(draw=False)
                 plt.plot(HC_result, 'b:', label="HC avg")
                 plt.plot(SA_result, 'g--', label='SA avg')
-            # elif algo == 'GA': #畫HC+SA+TB+GA(本身)
-                # SA_result =  HW3.HW3_main(draw=False)
-                # TS_result =  HW4.HW4_main(draw=False)
-                # plt.plot(HC_result, 'b:', label="HC avg")
-                # plt.plot(SA_result, 'g--', label='SA avg')
-                # plt.plot(TS_result, 'b--', label='TS avg')
+            elif algo == 'GA': #畫HC+SA+TB+GA(本身)
+                TS_result_t = result[0]
+                TS_result_w = result[1]
+                plt.plot(TS_result_t, 'b:', label='TS - Tournament avg')
+                plt.plot(TS_result_w, 'g--', label='TS - Roulette Wheel avg')
         if problem == 2: #deceptive
             title = 'Deceptive Problem'
             y_top = result[len(result)-1]; y_bottom = result[0]
@@ -174,9 +191,10 @@ def Draw(print_content, algo, problem, result, special_result):
             )
         # ------ 畫圖用 ------
         #plt1
-        plt.plot(result, color='r', label='{0} avg'.format(varibles.ALGO)) #(本身)
-        plt.xlabel('Iterations', fontsize="10") 
-        plt.ylabel('Fitness', fontsize="10") 
-        plt.title(title, fontsize="18") 
-        plt.legend()
+        if algo != 'GA':
+            plt.plot(result, color='r', label='{0} avg'.format(varibles.ALGO)) #(本身)
+            plt.xlabel('Iterations', fontsize="10") 
+    plt.ylabel('Fitness', fontsize="10") 
+    plt.title(title, fontsize="18") 
+    plt.legend()
     plt.show()
