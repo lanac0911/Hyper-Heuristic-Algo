@@ -13,6 +13,17 @@ CROSSOVER_RATE = 0.7
 MUTATION_RATE = 0.1
 GENERATION_LIST = []
 
+def Update_Optaimal(type,sol, list, run):
+    global global_best_t, global_best_w
+    if type == 't':
+        global_best_t["sol"] = sol
+        global_best_t["list"] = list
+        global_best_t['iter'] = run
+    elif type == 'w':
+        global_best_w["sol"] = sol
+        global_best_w["list"] = list
+        global_best_w['iter'] = run
+
 
 def Crossover(objects): #[{'sol': 4, 'list': [1, 1, 0, 1, 0, 0]}, ...]
     obj1 = objects[0].copy(); obj2 = objects[1].copy()
@@ -37,7 +48,7 @@ def Mutation(objects):#[{'sol': 4, 'list': [1, 1, 0, 1, 0, 0]}, ...]
             objs[idx]['list'][mutation_index] = int(not objs[idx]['list'][mutation_index])
     return (objs[0], objs[1])
 
-def Selection(list):
+def Selection_Tournament(list):
     parent_candiate = []
     for _ in range(2): #生成候選人
         candiates = random.sample(list, 2) 
@@ -45,7 +56,7 @@ def Selection(list):
     return (parent_candiate[0], parent_candiate[1])
 
 
-def Selection_wheel(popu_l, cdf_l): 
+def Selection_Wheel(popu_l, cdf_l): 
     selected_list = []
     for i in range(2): #ex. 總共選
         r = random.random()
@@ -76,9 +87,9 @@ def Genetic_Algorithm(n, type):
             mutate_list_t = [] #for tourment
             mutate_list_w = [] #for wheel
             for _ in range(int(POPULATION_SIZE / 2)):  # repeat到總共獲得POPULATION_SIZE個offsprings 
-                # ------ Selection (by CDF) -----------------
-                parent1, parent2 = Selection(population_list_t) # tou
-                parent3, parent4 = Selection_wheel(population_list_w, cdf_list) # wheel
+                # ------ Selection_Tournament (by CDF) -----------------
+                parent1, parent2 = Selection_Tournament(population_list_t) # tou
+                parent3, parent4 = Selection_Wheel(population_list_w, cdf_list) # wheel
 
                 # ------ Crossover ------
                 crossoverd1, crossoverd2 = Crossover([parent1, parent2])
@@ -88,22 +99,16 @@ def Genetic_Algorithm(n, type):
                 (mutated3, mutated4) = Mutation([crossoverd3, crossoverd4])
                 mutate_list_t.append(mutated1); mutate_list_t.append(mutated2)
                 mutate_list_w.append(mutated3); mutate_list_w.append(mutated4)
+            
             #------ find the local/global best sol of this iteration ------
             local_best_t = 0; local_best_w = 0; 
+            local_best_t = (max(mutate_list_t, key=lambda d: d['sol']))['sol']
+            local_best_w = (max(mutate_list_w, key=lambda d: d['sol']))['sol']
             for idx in range(0, POPULATION_SIZE):
-                if mutate_list_t[idx]['sol'] > local_best_t: 
-                    local_best_t =  mutate_list_t[idx]['sol'] #for local
                 if mutate_list_t[idx]['sol'] > global_best_t['sol']: # for global
-                    global_best_t['sol'] = mutate_list_t[idx]['sol']
-                    global_best_t['list'] = mutate_list_t[idx]['list']
-                    global_best_t['iter'] = run
-                
-                if mutate_list_w[idx]['sol'] > local_best_w: 
-                    local_best_w =  mutate_list_w[idx]['sol'] #for local
+                    Update_Optaimal('t',mutate_list_t[idx]['sol'], mutate_list_t[idx]['list'], run)
                 if mutate_list_w[idx]['sol'] > global_best_w['sol']: # for global
-                    global_best_w['sol'] = mutate_list_w[idx]['sol']
-                    global_best_w['list'] = mutate_list_w[idx]['list']
-                    global_best_w['iter'] = run
+                    Update_Optaimal('w',mutate_list_w[idx]['sol'], mutate_list_w[idx]['list'], run)
             one_iter_sol_list_t.append(local_best_t) 
             one_iter_sol_list_w.append(local_best_w) 
 
