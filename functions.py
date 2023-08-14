@@ -3,6 +3,7 @@ import functions, varibles
 import matplotlib.pyplot as plt
 from HW2 import HW2
 from HW3 import HW3
+from HW4 import HW4
 
 # ------- SHARE -------
 # 初始一組解(one max problem)
@@ -68,8 +69,34 @@ def Trap_Func(list):
         cnt = len(list) + 1
     return cnt
 
+# ------- HW5 -------
+def cal_proba(list_group):
+    dict = list_group.copy()
+    proba_list = [] #[{'sol': 10, 'list': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}, ....}
+    sum = 0
+    for one_member in dict:
+        sum += one_member['sol']  
+    for one_member in dict:
+        if sum == 0: proba_list.append(0)
+        else:
+            proba_list.append(one_member['sol'] / sum)
+    return proba_list
+
+def proba_to_cumulative(p_list): # [0.0185, 0.1296, ...]
+    cdf_list = []
+    for i in range(len(p_list)):
+        sum = 0
+        for j in range(i+1):
+            sum += p_list[j]
+        cdf_list.insert(i, sum)
+    return cdf_list #累積機率
+
+def biggest(obj):
+    sort_list = sorted(obj, key=lambda d: d['sol'], reverse=True) 
+    return sort_list[0]
 
 
+#######################
 content = '⎨ Deceptive Function Def. ⎬\n   ( n = 4 for example) \n---------------------------\n'
 funct = '  f(0000) = 5   * optimal\n  f(0001) = 1\n  f(0010) = 1\n  f(0011) = 2\n.\n.\n.\n  f(1100) = 2\n  f(1101) = 3\n  f(1110) = 3\n  f(1111) = 4\n'
 
@@ -119,6 +146,12 @@ def Draw(print_content, algo, problem, result, special_result):
                 SA_result =  HW3.HW3_main(draw=False)
                 plt.plot(HC_result, 'b:', label="HC avg")
                 plt.plot(SA_result, 'g--', label='SA avg')
+            # elif algo == 'GA': #畫HC+SA+TB+GA(本身)
+                # SA_result =  HW3.HW3_main(draw=False)
+                # TS_result =  HW4.HW4_main(draw=False)
+                # plt.plot(HC_result, 'b:', label="HC avg")
+                # plt.plot(SA_result, 'g--', label='SA avg')
+                # plt.plot(TS_result, 'b--', label='TS avg')
         if problem == 2: #deceptive
             title = 'Deceptive Problem'
             y_top = result[len(result)-1]; y_bottom = result[0]

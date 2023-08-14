@@ -91,6 +91,7 @@ def TABU_Search(n, type):
 
 def HW4_main(draw):
     global best_sol
+    problem = 1
     if draw:
         while(1):
             print("=============================================")

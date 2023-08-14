@@ -1,3 +1,0 @@
-list_to_be_sorted = [{'name': 'Homer', 'age': 39}, {'name': 'Bart', 'age': 10}]
-newlist = sorted(list_to_be_sorted, key=lambda d: d['name']) 
-print(newlist)
