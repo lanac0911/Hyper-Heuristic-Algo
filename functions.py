@@ -172,8 +172,8 @@ def Draw(print_content, algo, problem, result, special_result):
             elif algo == 'GA': #畫HC+SA+TB+GA(本身)
                 TS_result_t = result[0]
                 TS_result_w = result[1]
-                plt.plot(TS_result_t, 'b:', label='TS - Tournament avg')
-                plt.plot(TS_result_w, 'g--', label='TS - Roulette Wheel avg')
+                plt.plot(TS_result_t, 'b:', label='GA - Tournament avg')
+                plt.plot(TS_result_w, 'g--', label='GA - Roulette Wheel avg')
         if problem == 2: #deceptive
             title = 'Deceptive Problem'
             y_top = result[len(result)-1]; y_bottom = result[0]
