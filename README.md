@@ -41,9 +41,9 @@
 |:--------------------:	|:---------------------------------:	|:---------------------------------:	|:---------------------------------:	|:---------------------------------:	
 |     **HW1**     	| Exhaustive Search 	| One Max Problem 	| [📎](https://github.com/lanac0911/Hyper-Heuristic-Algo/tree/main/HW1)	| <img src="https://github.com/lanac0911/Hyper-Heuristic-Algo/blob/main/img/HW1.png" width="auto" height="250" />	| 
 |     **HW2**    	| Hill Climbing 	| One Max Problem 	| [📎](https://github.com/lanac0911/Hyper-Heuristic-Algo/tree/main/HW2)	| <img src="https://github.com/lanac0911/Hyper-Heuristic-Algo/blob/main/img/HW2.png" width="auto" height="250" />	| 	
-|  **HW3** 	| Simulated Annealing 	| One Max Problem、 	Deceptive Problem| [📎](https://github.com/lanac0911/Hyper-Heuristic-Algo/tree/main/HW3)	| <img src="https://github.com/lanac0911/Hyper-Heuristic-Algo/blob/main/img/HW3-oneMax.png" width="auto" height="250" /> <img src="https://github.com/lanac0911/Hyper-Heuristic-Algo/blob/main/img/HW3-dece.png" width="auto" height="250" />	| 	
-|   **HW4**   	| Tabu search 	| One Max Problem 	| [📎](https://github.com/lanac0911/Hyper-Heuristic-Algo/tree/main/HW4)		| <img src="https://github.com/lanac0911/Hyper-Heuristic-Algo/blob/main/img/HW4-oneMax.png" width="auto" height="250" />	| 	
-|      **HW5**      	| 	| 	| 	| 	| 	
+|  **HW3** 	| Simulated Annealing 	| One Max Problem、 Deceptive Problem| [📎](https://github.com/lanac0911/Hyper-Heuristic-Algo/tree/main/HW3)	| <img src="https://github.com/lanac0911/Hyper-Heuristic-Algo/blob/main/img/HW3-oneMax.png" width="auto" height="250" /> <img src="https://github.com/lanac0911/Hyper-Heuristic-Algo/blob/main/img/HW3-dece.png" width="auto" height="250" />	</br> (n=4)	| 	
+|   **HW4**   	| Tabu search 	| One Max Problem、 Deceptive Problem 	| [📎](https://github.com/lanac0911/Hyper-Heuristic-Algo/tree/main/HW4)		| <img src="https://github.com/lanac0911/Hyper-Heuristic-Algo/blob/main/img/HW4-oneMax.png" width="auto" height="250" /> <img src="https://github.com/lanac0911/Hyper-Heuristic-Algo/blob/main/img/HW4-deceN10.png" width="auto" height="250" /> </br> (n=10)	| 	
+|      **HW5**      	|  Genetic Algorithm	|  One Max Problem	| 	| 	| 	
 |     **HW6**    	| 	| 	| 	|  	|  	
 
 
