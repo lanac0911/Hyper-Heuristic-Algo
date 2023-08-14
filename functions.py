@@ -95,6 +95,11 @@ def biggest(obj):
     sort_list = sorted(obj, key=lambda d: d['sol'], reverse=True) 
     return sort_list[0]
 
+def Update_Optaimal(list):
+    d = dict()
+    d['sol'] = functions.Count_Sol(list)
+    d['list'] = list
+    return d
 
 #######################
 content = '⎨ Deceptive Function Def. ⎬\n   ( n = 4 for example) \n---------------------------\n'
