@@ -50,9 +50,9 @@ def HW2_main(draw):
         rl_temp_history = [] ; rand_temp_history = [] #清空
         rand_best_run = 0; rl_best_sol = 0
         # ------ random一組解 ------
-        init_obj = functions.Random_Sol(varibles.BIT_LEN) # [one_nums, zero_nums, random_list]
-        rl_best_sol = init_obj['one_nums'] ; rand_best_sol = init_obj['one_nums']
-        RL_list = init_obj['random_list'] ; Rand_list = RL_list.copy()
+        init_obj = functions.Generate_init(1, varibles.BIT_LEN) # [one_nums, zero_nums, random_list]
+        rl_best_sol = init_obj[0]['sol'] ; rand_best_sol = init_obj[0]['sol']
+        RL_list = init_obj[0]['list'] ; Rand_list = RL_list.copy()
 
         j = 0
         while j < varibles.ITER:

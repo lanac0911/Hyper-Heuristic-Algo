@@ -51,9 +51,9 @@ def TABU_Search(n, type):
     for i in range(varibles.RUNS):
         one_iter_sol_list = []
         # ------- Initialization 生成一組初始解 -------
-        init_obj = functions.Random_Sol(n) #隨機產生一組初始解
-        init_sol = init_obj['one_nums'] #計算當前解
-        best_sol = init_sol; temp_list = init_obj['random_list']
+        init_obj = functions.Generate_init(1, n) #隨機產生一組初始解
+        init_sol = init_obj[0]['sol'] #計算當前解
+        best_sol = init_sol; temp_list = init_obj[0]['list']
         j = 0
         # 迭代
         while j < varibles.ITER:
@@ -77,15 +77,10 @@ def TABU_Search(n, type):
                     temp_list = new_obj['list']
                     Quene_Oper('en', new_obj['list']) #enquene
                 #否 => 不更新，略過
-            # temp_list = new_obj['list']
-            print("!!!!!!!,be",best_sol)
             one_iter_sol_list.append(best_sol) 
             j+=1
-        print("one_iter_sol_list=",one_iter_sol_list)
         sumlist = np.array(sumlist) + np.array(one_iter_sol_list) #算平均用
-        print("sumlist=",sumlist)
     sumlist = np.divide(sumlist, varibles.RUNS)
-    print("after sumlist=",sumlist)
     return (sumlist, global_best) 
 
 

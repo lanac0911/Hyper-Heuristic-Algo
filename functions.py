@@ -6,28 +6,18 @@ from HW3 import HW3
 from HW4 import HW4
 import numpy as np
 
-# ------- SHARE -------
-# 初始一組解(one max problem)
-def Random_Sol(n):
-    one_nums = random.randint(0, n) #random “1” 的數量
-    zero_nums = n - one_nums # 計算出 "0" 的數量
-    list = [0] * zero_nums + [1] * one_nums # 組成list
-    random_list = random.sample(list, len(list)) # 打亂list
-    d = dict()
-    d['one_nums'] = one_nums
-    d['zero_nums'] = zero_nums
-    d['random_list'] = random_list
-    return d
 
-def Random_Sol_Simple(n):
-    one_nums = random.randint(0, n) #random “1” 的數量
-    zero_nums = n - one_nums # 計算出 "0" 的數量
-    list = [0] * zero_nums + [1] * one_nums # 組成list
-    random_list = random.sample(list, len(list)) # 打亂list
-    d = dict()
-    d['sol'] = one_nums
-    d['list'] = random_list
-    return d
+# ------- SHARE -------
+# 初始size組解(one max problem)
+def Generate_init(size,len):
+    init_list = []
+    for _ in range(size):
+        chrom_list = []
+        chrom_list = np.random.randint(0,2,len)
+        chrom_sol = functions.Count_Sol(chrom_list)
+        d = dict(); d['list'] = chrom_list.tolist(); d['sol'] = chrom_sol
+        init_list.append(d)
+    return init_list
 
 # 生成鄰居解
 def Transition_by_Random(list, n, type):
@@ -45,7 +35,11 @@ def Transition_by_Random(list, n, type):
     d['list'] = new_list
     return d
 
-
+def Count_Sol(list):
+    cnt = 0
+    for bit in iter(list): #計算和
+        if bit == 1 : cnt += 1
+    return cnt
 
 # ------- HW2 -------
 def Dec_to_BinaryList(num):
@@ -55,11 +49,6 @@ def BinaryList_to_Dec(list):
     temp_str = ''.join(map(str,list))
     return int(temp_str,2)
 
-def Count_Sol(list):
-    cnt = 0
-    for bit in iter(list): #計算和
-        if bit == 1 : cnt += 1
-    return cnt
 
 # ------- HW3 -------
 def Trap_Func(list):
@@ -102,15 +91,6 @@ def Update_Optaimal(list):
     d['list'] = list
     return d
 
-def generate_popu(size,len):
-    popu_list = []
-    for _ in range(size):
-        chrom_list = []
-        chrom_list = np.random.randint(0,2,len)
-        chrom_sol = functions.Count_Sol(chrom_list)
-        d = dict(); d['list'] = chrom_list.tolist(); d['sol'] = chrom_sol
-        popu_list.append(d)
-    return popu_list
 
 #######################
 content = '⎨ Deceptive Function Def. ⎬\n   ( n = 4 for example) \n---------------------------\n'
@@ -144,7 +124,6 @@ def Draw(print_content, algo, problem, result, special_result):
         plt.subplot(2,2,2)
         plt.plot(special_result[5], color='b')
         plt.title("Random")
-
         plt.xlabel('iterations')
         plt.suptitle("Hill Climbling")    
         #plt3
@@ -194,7 +173,7 @@ def Draw(print_content, algo, problem, result, special_result):
         if algo != 'GA':
             plt.plot(result, color='r', label='{0} avg'.format(varibles.ALGO)) #(本身)
             plt.xlabel('Iterations', fontsize="10") 
-    plt.ylabel('Fitness', fontsize="10") 
-    plt.title(title, fontsize="18") 
-    plt.legend()
+        plt.ylabel('Fitness', fontsize="10") 
+        plt.title(title, fontsize="18") 
+        plt.legend()
     plt.show()

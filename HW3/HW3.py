@@ -21,14 +21,12 @@ def Simulated_Annealing(n, type):
     global best_sol, global_best
     sumlist = [0] * varibles.ITER
     for i in range(varibles.RUNS):
-        t = T0	
-        one_iter_sol_list = []
+        t = T0; one_iter_sol_list = []; j = 0
         # ------- Initialization 生成一組初始解 -------
-        init_obj = functions.Random_Sol(n) #隨機產生一組初始解
-        init_sol = init_obj['one_nums'] #計算當前解
+        init_obj = functions.Generate_init(1, n) #隨機產生一組初始解
+        init_sol = init_obj[0]['sol'] #計算當前解
         best_sol = init_sol; temp_sol = best_sol
-        temp_list = init_obj['random_list']
-        j = 0
+        temp_list = init_obj[0]['list']
         # 迭代
         while j < varibles.ITER:
             # ------- Transition 生成鄰居解 -------
@@ -38,7 +36,6 @@ def Simulated_Annealing(n, type):
             if(new_sol > temp_sol): # 若優於先前解 → 則直接更新
                 Update_Best_Sol(new_sol)
                 temp_list = new_obj['list']
-
             # ------- Determination --- ----
             else: # 否 → 則進行退火
                 Pa = math.exp( (new_sol - temp_sol) / t ) #由差值機算出的允許機率
@@ -47,7 +44,6 @@ def Simulated_Annealing(n, type):
                     Update_Best_Sol(new_sol)
                     temp_list = new_obj['list']
                 t *= RATIO #進行降溫
-
             # find 全域最佳解
             if best_sol > global_best['sol']:
                 global_best["sol"] = best_sol

@@ -1,6 +1,5 @@
 #HW5 One-Max Problem with Genetic Algorithm
-import matplotlib.pyplot as plt
-import random, math
+import random
 import varibles, functions
 import numpy as np
 
@@ -77,7 +76,7 @@ def Genetic_Algorithm(n, type):
     global best_sol, global_best_t, global_best_w, GENERATION_LIST
     for run in range(varibles.RUNS):
         iter = 0; one_iter_sol_list_t = []; one_iter_sol_list_w = []
-        init_popu = functions.generate_popu(POPULATION_SIZE,n) # 先產生一組初始群體 （大小：POPULATION_SIZE）
+        init_popu = functions.Generate_init(POPULATION_SIZE,n) # 先產生一組初始群體 （大小：POPULATION_SIZE）
         population_list_t = init_popu.copy() #for tourment
         population_list_w = init_popu.copy() #for wheel
         while iter < varibles.ITER:
@@ -90,7 +89,6 @@ def Genetic_Algorithm(n, type):
                 # ------ Selection_Tournament (by CDF) -----------------
                 parent1, parent2 = Selection_Tournament(population_list_t) # tou
                 parent3, parent4 = Selection_Wheel(population_list_w, cdf_list) # wheel
-
                 # ------ Crossover ------
                 crossoverd1, crossoverd2 = Crossover([parent1, parent2])
                 crossoverd3, crossoverd4 = Crossover([parent3, parent4])
