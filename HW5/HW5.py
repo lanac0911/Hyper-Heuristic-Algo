@@ -64,7 +64,7 @@ def Selection_Wheel(popu_l, cdf_l):
         else: #當qk-1 < r < qk，則選擇第 k 個染色體 vk
             for i in range(1, len(cdf_l)): #1~10 (1 2 3 4 5 6 7 8 9)
                 if r > cdf_l[i-1] and r <= cdf_l[i]: picked_idx =  i; break
-            if picked_idx == -1: picked_idx = len(list) - 1 #last one
+            if picked_idx == -1: picked_idx = len(popu_l) - 1 #last one
         #每組找完
         selected_list.append(popu_l[picked_idx])
     return ([selected_list[0], selected_list[1]])
