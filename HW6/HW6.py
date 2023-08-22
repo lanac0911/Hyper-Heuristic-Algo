@@ -5,8 +5,7 @@ import numpy as np
 from scipy.spatial import distance
 
 # 其他用參數
-global_best = { 'distance':0, 'path':[] }
-ANT_NUMS = 3
+ANT_NUMS = 100
 CITY_NUMS = 30
 CITY_NAMES = []
 alpha = 1
@@ -80,57 +79,62 @@ def An_Ant_Trip(An_Ant_Path, Pheromone_Table, visibility, Dist_Martix):
     return (An_Ant_Path, distance)
 
 def Update_Optaimal(Distances, Solutions):
-    global global_best
+    one_iter_best = { 'distance':0, 'path':[] }
     temp_dis = 2000; temp_path = []
     for i in range(len(Distances)):
         if Distances[i] < temp_dis: 
             temp_dis = Distances[i]
             temp_path = Solutions[i]
-    global_best['distance'] = temp_dis
-    global_best['path'] = temp_path
-
-
+    one_iter_best['distance'] = temp_dis
+    one_iter_best['path'] = temp_path
+    return one_iter_best
 
 
 
 
 def Ant_Colony_Optimization():
-    iter = 0; global global_best
-    All_Solutions = []; All_Distances = []; total_distance = 0
-    Dist_Martix = Get_Distance_Matrix('t2.txt') # 初始距離矩陣
-    Pheromone_Table = np.ones((CITY_NUMS, CITY_NUMS)) #費洛蒙表
-    print("!!", (Pheromone_Table))
-    An_Ant_Path = np.zeros(CITY_NUMS) # 一隻螞蟻的路徑
-    Best_Path = np.zeros((ANT_NUMS, CITY_NUMS)) #某隻螞蟻的最佳路經
-    visibility = np.divide(1.0,Dist_Martix) # 距離的倒數
-  # -------- 建所有解 --------
-    for _ in range(ANT_NUMS):
-        (a_solution, a_distance) = An_Ant_Trip(An_Ant_Path, Pheromone_Table, visibility, Dist_Martix)
-        All_Solutions.append(a_solution)
-        All_Distances.append(a_distance)
-        total_distance += a_distance
-    print("All_Solutions =",All_Solutions)
-    print("All_Distances =",All_Distances)
-    print("===========================")
-  # -------- 更新費洛蒙 --------
-    # τ(i,j) = ρ * τ(i,j) +  Δτ(i,j) = (原本這條路的費洛蒙)*揮發速度 + Δτ(i,j)
-    temp_Pheromen = np.zeros((CITY_NUMS, CITY_NUMS))
-    for i in range(ANT_NUMS): # 計算每個螞蟻的
-        print("i---------------------------------------",i)
-        for j in range(CITY_NUMS - 1):  # 計算每個螞蟻的 每個城市
-            city1 = int(All_Solutions[i][j]); city2 = int(All_Solutions[i][j+1])
-            temp_Pheromen[city1][city2] += 1 / All_Distances[i]
-        city1 = int(All_Solutions[i][j+1]); city2 = int(All_Solutions[i][0])
-        temp_Pheromen[city1][city2] += 1 / All_Distances[i]
-    Pheromone_Table = rh_rate*Pheromone_Table + temp_Pheromen # 揮發
-  # -------- 更新路徑 --------
-    Update_Optaimal(All_Distances, All_Solutions)
-        
-    while iter < 1:
-
-        iter+=1
-
-        #
+    all_solutions = []
+    sumlist = np.zeros(varibles.ITER)
+    for run in range(varibles.RUNS):
+        print(f"====={run} RUN")
+        iter = 0; 
+        one_run_solutions = []
+        Dist_Martix = Get_Distance_Matrix('t2.txt') # 初始距離矩陣
+        Pheromone_Table = np.ones((CITY_NUMS, CITY_NUMS)) #費洛蒙表
+        # print("!!", (Pheromone_Table))
+        An_Ant_Path = np.zeros(CITY_NUMS) # 一隻螞蟻的路徑
+        visibility = np.divide(1.0, Dist_Martix) # 距離的倒數
+        while iter < varibles.ITER:
+            All_Solutions = []; All_Distances = []; total_distance = 0
+        # -------- 建所有解 --------
+            for _ in range(ANT_NUMS):
+                (a_solution, a_distance) = An_Ant_Trip(An_Ant_Path, Pheromone_Table, visibility, Dist_Martix)
+                All_Solutions.append(a_solution)
+                All_Distances.append(a_distance)
+                total_distance += a_distance
+            # print("All_Solutions =",np.shape(All_Solutions))
+            # print("All_Distances =",np.shape(All_Distances))
+            # print("===========================")
+        # -------- 更新費洛蒙 --------
+            # τ(i,j) = ρ * τ(i,j) +  Δτ(i,j) = (原本這條路的費洛蒙)*揮發速度 + Δτ(i,j)
+            temp_Pheromen = np.zeros((CITY_NUMS, CITY_NUMS))
+            for i in range(ANT_NUMS): # 計算每個螞蟻的
+                # print("i---------------------------------------",i)
+                for j in range(CITY_NUMS - 1):  # 計算每個螞蟻的 每個城市
+                    city1 = int(All_Solutions[i][j]); city2 = int(All_Solutions[i][j+1])
+                    temp_Pheromen[city1][city2] += 1 / All_Distances[i]
+                city1 = int(All_Solutions[i][j+1]); city2 = int(All_Solutions[i][0])
+                temp_Pheromen[city1][city2] += 1 / All_Distances[i]
+            Pheromone_Table = rh_rate*Pheromone_Table + temp_Pheromen # 揮發
+        # -------- 更新路徑 --------
+            one_iter_best = Update_Optaimal(All_Distances, All_Solutions)
+            # print("~~~~~~~~~~~~~~",one_iter_best)
+            one_run_solutions.append(one_iter_best['distance'])
+            iter+=1
+        print("one_run_solutions=",one_run_solutions)
+        sumlist = np.array(sumlist) + np.array(one_run_solutions)
+    sumlist = np.divide(sumlist, varibles.RUNS)
+    print("sumlist=",sumlist)
             
 
 

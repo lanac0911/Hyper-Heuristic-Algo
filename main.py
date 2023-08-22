@@ -38,7 +38,7 @@ def which_algo(type):
         HW6.HW6_main(draw=True)
 
 # params = { 0:'HC' , 1: 5, 2: 10, 3: 10} #algo, runs, iters, bits
-params = { 0:'HC' , 1: 51, 2: 1000, 3: 100 } #algo, runs, iters, bits
+params = { 0:'HC' , 1: 1, 2: 100, 3: 100 } #algo, runs, iters, bits
 if __name__ == '__main__':
     for i in range(2,6):
         if len(sys.argv) == i: 
