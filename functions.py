@@ -138,6 +138,13 @@ def Draw(print_content, algo, problem, result, special_result):
         ax2.set_ylabel("Random", color='b')
         ax2.tick_params('y', color='b')
         plt.setp(ax2.get_yticklabels(), color='b')         
+    elif algo == 'ACO':
+        title = 'Travelling Salesman Problem'
+        plt.plot(result, color='r', label='{0} avg'.format(varibles.ALGO)) #(本身)
+        plt.xlabel('Iterations', fontsize="10") 
+        plt.ylabel('Fitness', fontsize="10") 
+        plt.title(title, fontsize="18") 
+        plt.legend()
     else:    
         title = 'One Max Problem'
         if problem == 1: #oneMax
