@@ -73,12 +73,13 @@ def cal_proba(list_group):
     return proba_list
 
 def proba_to_cumulative(p_list): # [0.0185, 0.1296, ...]
-    cdf_list = []
-    for i in range(len(p_list)):
-        sum = 0
-        for j in range(i+1):
-            sum += p_list[j]
-        cdf_list.insert(i, sum)
+    # for i in range(len(p_list)):
+    #     sum = 0
+    #     for j in range(i+1):
+    #         sum += p_list[j]
+        # cdf_list.insert(i, sum)
+    cdf_list = np.cumsum(p_list)
+
     return cdf_list #累積機率
 
 def biggest(obj):

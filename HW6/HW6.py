@@ -12,8 +12,8 @@ ANT_NUMS = 10
 CITY_NUMS = 51
 CITY_NAMES = []
 alpha = 1
-beta = 3
-Q = 10
+beta = 2
+Q = 1
 RH_RATE = 0.7 #費洛蒙衰退參數
 Pheromone_Table = []
 
@@ -22,7 +22,6 @@ Pheromone_Table = []
 def Get_Distance_Matrix(fileName):
     res = []
     with open(fileName, 'r') as f:
-        print(f)
         res = []; start = False
         for line in f.readlines():
             split_item = line.split()
@@ -59,7 +58,7 @@ def Ant_Colony_Optimization():
     Visibility = np.divide(1, Dist_Martix) # 能見度(距離的倒數)
     sum_solutions = np.zeros(varibles.ITER)
     for run in range(varibles.RUNS):
-        print(f"執行第{run}RUN...")
+        print(f"執行第 {run+1} RUN中...")
         # 資訊初始化
         Pheromone = np.ones((CITY_NUMS, CITY_NUMS)) # 費洛蒙
         all_solutions = []
@@ -91,10 +90,8 @@ def Ant_Colony_Optimization():
                     #
                     an_ant_length += Dist_Martix[current_city_id][picked_city_id]
                     current_city_id = picked_city_id
-                # print(f"{ant}號ant的路線", an_ant_length, an_ant_path)
                 all_ants_path.append({'length': an_ant_length, 'path': an_ant_path})
-            # print("all=",(all_ants_path))
-            
+
             # ------- 更新費洛蒙 -------
             # 先蒸發濃度
             Pheromone *= RH_RATE
@@ -111,6 +108,7 @@ def Ant_Colony_Optimization():
             best_sol = min(all_ants_path,  key=lambda x: x['length']) 
             all_solutions.append(best_sol) # each iter's ant's best sol
             length_values = [entry['length'] for entry in all_solutions]
+
 
         # ------- 更新最佳解/路徑 -------
         best = min(length_values)
@@ -130,8 +128,6 @@ def Ant_Colony_Optimization():
 
 
 def HW6_main(draw):
-    global best_sol
-    type = 'Travel Salesman Problem'
     result = []
     (result, global_best) = Ant_Colony_Optimization()
     if(draw):
