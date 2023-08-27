@@ -146,6 +146,13 @@ def Draw(print_content, algo, problem, result, special_result):
         plt.ylabel('Fitness', fontsize="10") 
         plt.title(title, fontsize="18") 
         plt.legend()
+    elif algo == 'PSO':
+        title = f'Ackley Function (n = {special_result[0]})'
+        plt.plot(result, color='r', label='{0} avg'.format(varibles.ALGO)) #(本身)
+        plt.xlabel('Iterations', fontsize="10") 
+        plt.ylabel('Fitness', fontsize="10") 
+        plt.title(title, fontsize="18") 
+        plt.legend()
     else:    
         title = 'One Max Problem'
         if problem == 1: #oneMax
