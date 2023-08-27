@@ -27,13 +27,13 @@
 </td>
 <td  width="50%" style="background:#fff">
 <img src="https://github.com/lanac0911/Hyper-Heuristic-Algo/blob/main/img/format.png" width="auto"/>
+<img src="https://github.com/lanac0911/Hyper-Heuristic-Algo/blob/main/img/alogs.png"  width="auto" height="100"  />
 
 ```python
 # Hill Climbing 做51回，每回100次，長度設100
     python3 main.py HC 51 100 100
 # Simulated Annealing 「預設」做51回，每回100次，長度設100
     python3 main.py SA
-
 
 ⚠️ ACO & PSO 不適用 {bits len / n} 設定
 ```
