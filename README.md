@@ -22,7 +22,7 @@
 #### &ensp;&ensp;&ensp;&ensp;&ensp; ⌊ HW4報告 :   [連結📎](https://omniscient-macaw-5c4.notion.site/HW4-a094c90f904644e89a3c556d1750fae2)
 #### &ensp;&ensp;&ensp;&ensp;&ensp; ⌊ HW5報告 :   [連結📎](https://omniscient-macaw-5c4.notion.site/HW5-c918b05cca6342c6a33e831b3aa0d915?pvs=4)
 #### &ensp;&ensp;&ensp;&ensp;&ensp; ⌊ HW6報告 :   [連結📎](https://omniscient-macaw-5c4.notion.site/HW6-c918b05cca6342c6a33e831b3aa0d915?pvs=4)
-#### &ensp;&ensp;&ensp;&ensp;&ensp; ⌊ HW7報告 :   
+#### &ensp;&ensp;&ensp;&ensp;&ensp; ⌊ HW7報告 :   [連結📎](https://omniscient-macaw-5c4.notion.site/HW7-d03682fdafdb4a63bf2133f1c3240593?pvs=4)
 <br/>
 </td>
 <td  width="50%" style="background:#fff">
@@ -33,7 +33,12 @@
     python3 main.py HC 51 100 100
 # Simulated Annealing 「預設」做51回，每回100次，長度設100
     python3 main.py SA
-``` 
+
+
+⚠️ ACO & PSO 不適用 {bits len / n} 設定
+```
+ 
+
 </td>
 </table>
 
@@ -46,5 +51,5 @@
 |   **HW4**   	| Tabu Search 	| One Max Problem、 Deceptive Problem 	| [📎](https://github.com/lanac0911/Hyper-Heuristic-Algo/tree/main/HW4)		| <img src="https://github.com/lanac0911/Hyper-Heuristic-Algo/blob/main/img/HW4-oneMax.png" width="auto" height="250" /> <img src="https://github.com/lanac0911/Hyper-Heuristic-Algo/blob/main/img/HW4-deceN10.png" width="auto" height="250" /> </br> (n=10)	| 	
 |      **HW5**      	|  Genetic Algorithm	|  One Max Problem	| [📎](https://github.com/lanac0911/Hyper-Heuristic-Algo/tree/main/HW5)	|  <img src="https://github.com/lanac0911/Hyper-Heuristic-Algo/blob/main/img/HW5.png" width="auto" height="250" />	| 	
 |     **HW6**    	| Ant Colony Optimization	| Traveling Salesman Problem |  [📎](https://github.com/lanac0911/Hyper-Heuristic-Algo/tree/main/HW6)	| <img src="https://github.com/lanac0911/Hyper-Heuristic-Algo/blob/main/img/HW6.png" width="auto" height="250" /> 	|  	
-|     **HW7**    	| 	|  |  	| 	| 
+|     **HW7**    	| Particle Swarm Optimiaztion |  Ackley Function |   [📎](https://omniscient-macaw-5c4.notion.site/HW7-d03682fdafdb4a63bf2133f1c3240593?pvs=4)	|  <img src="https://github.com/lanac0911/Hyper-Heuristic-Algo/blob/main/img/HW7-10.png" width="auto" height="250" /> 	<img src="https://github.com/lanac0911/Hyper-Heuristic-Algo/blob/main/img/HW7-50.png" width="auto" height="250" /> | 
 
