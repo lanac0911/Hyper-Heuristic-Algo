@@ -9,7 +9,8 @@ import matplotlib.pyplot as plt
 
 PARTICLE_NUMS = 50
 DIMENSION = 3
-SPEED = 1
+SPACE_MAX = 30
+SPEED_MAX = 1
 C1 = 2
 C2 = 2
 Omega = 0.5
@@ -36,9 +37,9 @@ def  Particle_Swarm_Optimiaztion():
     for _ in range(varibles.RUNS):
         # ------- Initialize -------
         # 初始化
-        p_positions = np.random.uniform(-30, 30, (PARTICLE_NUMS, DIMENSION)) # 每個(粒子)的位置 [粒子數＊維度]
+        p_positions = np.random.uniform(-SPACE_MAX, SPACE_MAX, (PARTICLE_NUMS, DIMENSION)) # 每個(粒子)的位置 [粒子數＊維度]
         p_solutions = list(map(Ackley_Func, p_positions)) # 每一組(粒子)的解 [粒子數]
-        p_speeds = np.random.uniform(-1, 1, (PARTICLE_NUMS, DIMENSION)) # 初始化每一組(粒子)的速度  [粒子數＊維度]
+        p_speeds = np.random.uniform(-SPEED_MAX, SPEED_MAX, (PARTICLE_NUMS, DIMENSION)) # 初始化每一組(粒子)的速度  [粒子數＊維度]
         # personal
         pb_positions = p_positions.copy() # 設定為最初的最佳解(位置) [粒子數＊維度]
         pb_solutions = p_solutions.copy() # 設定為最初的最佳解 [粒子數]
