@@ -1,11 +1,8 @@
 
 #HW6 Ackley Function with Particle Swarm Optimiaztion 
-import random, math
+import random
 import varibles, functions
 import numpy as np
-from scipy.spatial import distance
-import matplotlib.pyplot as plt
-
 
 PARTICLE_NUMS = 50
 DIMENSION = 3
@@ -13,12 +10,14 @@ SPACE_MAX = 30
 SPEED_MAX = 1
 C1 = 2
 C2 = 2
-Omega = 0.5
+OMEGA = 0.5
 
-def Update_Optaimal(list, pos, sol, iter):
+def Update_Optaimal(pos, sol, iter):
+    list = {'sol': None, 'list': [], 'iter':0}
     list["sol"] = sol
     list["list"] = pos
     list['iter'] = iter
+    return list
 
 def Ackley_Func(coords, a = 20, b = 0.2, c = 2 * np.pi):
     x, y, z = coords
@@ -33,7 +32,6 @@ def If_Better(current_best, now_val):
 
 def  Particle_Swarm_Optimiaztion():
     sum_list = np.zeros(varibles.ITER)
-    global_best = {'sol': None, 'list': [], 'iter':0}
     for _ in range(varibles.RUNS):
         # ------- Initialize -------
         # 初始化
@@ -46,7 +44,7 @@ def  Particle_Swarm_Optimiaztion():
         # global
         gb_solution = min(p_solutions) # 目前的最佳解
         gb_position = p_positions[np.argmin(p_solutions)] # 目前最佳解的位置
-        #
+        
         one_iter_sol = []
         # ------- Calulate & Updat ------- 
         for iter in range(varibles.ITER):
@@ -54,7 +52,7 @@ def  Particle_Swarm_Optimiaztion():
             for i in range(PARTICLE_NUMS):
                 # calulate/update speed
                 r1 = random.random(); r2 = random.random()
-                p_speeds[i] = Omega * p_speeds[i] +\
+                p_speeds[i] = OMEGA * p_speeds[i] +\
                             C1 * r1 * (pb_positions[i]- p_positions[i]) +\
                             C2 * r2 * (gb_position - p_positions[i])
                 # 2. update position
@@ -68,7 +66,7 @@ def  Particle_Swarm_Optimiaztion():
                     if If_Better(gb_solution, fitness):  # global (gb)
                         gb_position = p_positions[i]
                         gb_solution = fitness
-                        Update_Optaimal(global_best, gb_position, gb_solution, iter)
+                        global_best = Update_Optaimal(gb_position, gb_solution, iter)
 
             one_iter_sol.append(gb_solution)
         sum_list =  np.array(sum_list) + np.array(one_iter_sol)
@@ -86,7 +84,6 @@ def HW7_main(draw):
                          str(global_best['list'])
                         ]
         functions.Draw(print_content,varibles.ALGO, 1, result, [PARTICLE_NUMS])
-        #
     else: return result
     
 
